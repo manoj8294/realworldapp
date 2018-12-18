@@ -1,9 +1,8 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from ".";
+import router from "./router";
 import store from "./store";
 import "./assets/main.css";
-import "./registerServiceWorker";
 
 import { isAuthenticate } from "./store/actions.type";
 import ApiService from "./common/api.service";
@@ -16,7 +15,6 @@ Vue.filter("error", ErrorFilter);
 
 ApiService.init();
 
-// Ensure we checked auth before each page load.
 router.beforeEach((to, from, next) =>
   Promise.all([store.dispatch(isAuthenticate)]).then(next)
 );

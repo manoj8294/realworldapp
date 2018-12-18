@@ -5,7 +5,7 @@
       <div v-if="articles.length === 0" class="article-preview">
         No articles are here... yet.
       </div>
-      <RwvArticlePreview
+      <ArticlePreview
         v-for="(article, index) in articles"
         :article="article"
         :key="article.title + index"
@@ -17,14 +17,14 @@
 
 <script>
 import { mapGetters } from "vuex";
-import RwvArticlePreview from "./VArticlePreview";
+import ArticlePreview from "./VArticlePreview";
 import VPagination from "./VPagination";
-import { FETCH_ARTICLES } from "../store/actions.type";
+import { fetchMultipleArticles } from "../store/actions.type";
 
 export default {
-  name: "RwvArticleList",
+  name: "ArticleList",
   components: {
-    RwvArticlePreview,
+    ArticlePreview,
     VPagination
   },
   props: {
@@ -90,31 +90,31 @@ export default {
   watch: {
     currentPage(newValue) {
       this.listConfig.filters.offset = (newValue - 1) * this.itemsPerPage;
-      this.fetchArticles();
+      this.fetchMultipleArticles();
     },
     type() {
       this.resetPagination();
-      this.fetchArticles();
+      this.fetchMultipleArticles();
     },
     author() {
       this.resetPagination();
-      this.fetchArticles();
+      this.fetchMultipleArticles();
     },
     tag() {
       this.resetPagination();
-      this.fetchArticles();
+      this.fetchMultipleArticles();
     },
     favorited() {
       this.resetPagination();
-      this.fetchArticles();
+      this.fetchMultipleArticles();
     }
   },
   mounted() {
-    this.fetchArticles();
+    this.fetchMultipleArticles();
   },
   methods: {
-    fetchArticles() {
-      this.$store.dispatch(FETCH_ARTICLES, this.listConfig);
+    fetchMultipleArticles() {
+      this.$store.dispatch(fetchMultipleArticles, this.listConfig);
     },
     resetPagination() {
       this.listConfig.offset = 0;

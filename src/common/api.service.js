@@ -18,13 +18,13 @@ const ApiService = {
 
   query(resource, params) {
     return Vue.axios.get(resource, params).catch(error => {
-      throw new Error(`[RWV] ApiService ${error}`);
+      throw new Error(`[] ApiService ${error}`);
     });
   },
 
   get(resource, slug = "") {
     return Vue.axios.get(`${resource}/${slug}`).catch(error => {
-      throw new Error(`[RWV] ApiService ${error}`);
+      throw new Error(`[] ApiService ${error}`);
     });
   },
 
@@ -42,7 +42,7 @@ const ApiService = {
 
   delete(resource) {
     return Vue.axios.delete(resource).catch(error => {
-      throw new Error(`[RWV] ApiService ${error}`);
+      throw new Error(`[] ApiService ${error}`);
     });
   }
 };
@@ -79,7 +79,7 @@ export const CommentsService = {
   get(slug) {
     if (typeof slug !== "string") {
       throw new Error(
-        "[RWV] CommentsService.get() article slug required to fetch comments"
+        "[] CommentsService.get() article slug required to fetch comments"
       );
     }
     return ApiService.get("articles", `${slug}/comments`);

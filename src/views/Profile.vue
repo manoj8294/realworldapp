@@ -75,15 +75,15 @@
 <script>
 import { mapGetters } from "vuex";
 import {
-  FETCH_PROFILE,
+  fetchProfile,
   fetchProfileFollow,
   fetchProfileFollowUnFollow
 } from "@/store/actions.type";
 
 export default {
-  name: "RwvProfile",
+  name: "Profile",
   mounted() {
-    this.$store.dispatch(FETCH_PROFILE, this.$route.params);
+    this.$store.dispatch(fetchProfile, this.$route.params);
   },
   computed: {
     ...mapGetters(["currentUser", "profile", "isAuthenticated"])
@@ -105,7 +105,7 @@ export default {
   },
   watch: {
     $route(to) {
-      this.$store.dispatch(FETCH_PROFILE, to.params);
+      this.$store.dispatch(fetchProfile, to.params);
     }
   }
 };

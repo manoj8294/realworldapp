@@ -23,10 +23,10 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { COMMENT_DESTROY } from "@/store/actions.type";
+import { destroyComment } from "@/store/actions.type";
 
 export default {
-  name: "RwvComment",
+  name: "Comment",
   props: {
     slug: { type: String, required: true },
     comment: { type: Object, required: true }
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     destroy(slug, commentId) {
-      this.$store.dispatch(COMMENT_DESTROY, { slug, commentId });
+      this.$store.dispatch(destroyComment, { slug, commentId });
     }
   }
 };

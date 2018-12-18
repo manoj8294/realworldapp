@@ -1,6 +1,6 @@
 <template>
   <div>
-    <rwv-list-errors :errors="errors"> </rwv-list-errors>
+    <list-errors :errors="errors"> </list-errors>
     <form
       class="card comment-form"
       v-on:submit.prevent="onSubmit(slug, comment);"
@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import RwvListErrors from "@/components/ListErrors";
-import { COMMENT_CREATE } from "@/store/actions.type";
+import ListErrors from "@/components/ListErrors";
+import { createComment } from "@/store/actions.type";
 
 export default {
-  name: "RwvCommentEditor",
-  components: { RwvListErrors },
+  name: "CommentEditor",
+  components: { ListErrors },
   props: {
     slug: { type: String, required: true },
     content: { type: String, required: false },
@@ -43,7 +43,7 @@ export default {
   methods: {
     onSubmit(slug, comment) {
       this.$store
-        .dispatch(COMMENT_CREATE, { slug, comment })
+        .dispatch(createComment, { slug, comment })
         .then(() => {
           this.comment = null;
           this.errors = {};

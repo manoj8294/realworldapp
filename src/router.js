@@ -32,8 +32,8 @@ export default new Router({
       component: () => import("@/views/Login")
     },
     {
-      name: "register",
-      path: "/register",
+      name: "registerUser",
+      path: "/registerUser",
       component: () => import("@/views/Register")
     },
     {
@@ -41,9 +41,6 @@ export default new Router({
       path: "/settings",
       component: () => import("@/views/Settings")
     },
-    // Handle child routes with a default, by giving the name to the
-    // child.
-    // SO: https://github.com/vuejs/vue-router/issues/777
     {
       path: "/@:username",
       component: () => import("@/views/Profile"),

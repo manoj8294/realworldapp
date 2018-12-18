@@ -1,10 +1,10 @@
 import { TagsService, ArticlesService } from "@/common/api.service";
-import { FETCH_ARTICLES, FETCH_TAGS } from "./actions.type";
+import { fetchMultipleArticles, fetchTags } from "./actions.type";
 import {
-  FETCH_START,
-  FETCH_END,
-  SET_TAGS,
-  UPDATE_ARTICLE_IN_LIST
+  fetchStart,
+  fetchEnd,
+  setTags,
+  updateArticleList
 } from "./mutations.type";
 
 const state = {
@@ -30,20 +30,20 @@ const getters = {
 };
 
 const actions = {
-  [FETCH_ARTICLES]({ commit }, params) {
-    commit(FETCH_START);
+  [fetchMultipleArticles]({ commit }, params) {
+    commit(fetchStart);
     return ArticlesService.query(params.type, params.filters)
       .then(({ data }) => {
-        commit(FETCH_END, data);
+        commit(fetchEnd, data);
       })
       .catch(error => {
         throw new Error(error);
       });
   },
-  [FETCH_TAGS]({ commit }) {
+  [fetchTags]({ commit }) {
     return TagsService.get()
       .then(({ data }) => {
-        commit(SET_TAGS, data.tags);
+        commit(setTags, data.tags);
       })
       .catch(error => {
         throw new Error(error);
@@ -53,25 +53,22 @@ const actions = {
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
 const mutations = {
-  [FETCH_START](state) {
+  [fetchStart](state) {
     state.isLoading = true;
   },
-  [FETCH_END](state, { articles, articlesCount }) {
+  [fetchEnd](state, { articles, articlesCount }) {
     state.articles = articles;
     state.articlesCount = articlesCount;
     state.isLoading = false;
   },
-  [SET_TAGS](state, tags) {
+  [setTags](state, tags) {
     state.tags = tags;
   },
-  [UPDATE_ARTICLE_IN_LIST](state, data) {
+  [updateArticleList](state, data) {
     state.articles = state.articles.map(article => {
       if (article.slug !== data.slug) {
         return article;
       }
-      // We could just return data, but it seems dangerous to
-      // mix the results of different api calls, so we
-      // protect ourselves by copying the information.
       article.favorited = data.favorited;
       article.favoritesCount = data.favoritesCount;
       return article;

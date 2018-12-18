@@ -47,8 +47,8 @@
           <div class="sidebar">
             <p>Popular Tags</p>
             <div class="tag-list">
-              <RwvTag v-for="(tag, index) in tags" :name="tag" :key="index">
-              </RwvTag>
+              <Tag v-for="(tag, index) in tags" :name="tag" :key="index">
+              </Tag>
             </div>
           </div>
         </div>
@@ -59,16 +59,16 @@
 
 <script>
 import { mapGetters } from "vuex";
-import RwvTag from "@/components/VTag";
-import { FETCH_TAGS } from "@/store/actions.type";
+import Tag from "@/components/VTag";
+import { fetchTags } from "@/store/actions.type";
 
 export default {
   name: "home",
   components: {
-    RwvTag
+    Tag
   },
   mounted() {
-    this.$store.dispatch(FETCH_TAGS);
+    this.$store.dispatch(fetchTags);
   },
   computed: {
     ...mapGetters(["isAuthenticated", "tags"]),

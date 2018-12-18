@@ -3,7 +3,7 @@
     <div class="container page">
       <div class="row">
         <div class="col-md-10 offset-md-1 col-xs-12">
-          <RwvListErrors :errors="errors" />
+          <ListErrors :errors="errors" />
           <form v-on:submit.prevent="onPublish(article.slug);">
             <fieldset :disabled="inProgress">
               <fieldset class="form-group">
@@ -66,22 +66,24 @@
   </div>
 </template>
 
+
+
 <script>
 import { mapGetters } from "vuex";
 import store from "@/store";
-import RwvListErrors from "@/components/ListErrors";
+import ListErrors from "@/components/ListErrors";
 import {
-  ARTICLE_PUBLISH,
-  ARTICLE_EDIT,
-  FETCH_ARTICLE,
-  ARTICLE_EDIT_ADD_TAG,
-  ARTICLE_EDIT_REMOVE_TAG,
-  ARTICLE_RESET_STATE
+  publishArticle,
+  editArticle,
+  fetchArticle,
+  editArticleAddTag,
+  editArticleRemoveTag,
+  resetArticleState
 } from "@/store/actions.type";
 
 export default {
-  name: "RwvArticleEdit",
-  components: { RwvListErrors },
+  name: "ArticleEdit",
+  components: { ListErrors },
   props: {
     previousArticle: {
       type: Object,
@@ -89,18 +91,14 @@ export default {
     }
   },
   async beforeRouteUpdate(to, from, next) {
-    // Reset state if user goes from /editor/:id to /editor
-    // The component is not recreated so we use to hook to reset the state.
-    await store.dispatch(ARTICLE_RESET_STATE);
+    await store.dispatch(resetArticleState);
     return next();
   },
   async beforeRouteEnter(to, from, next) {
-    // SO: https://github.com/vuejs/vue-router/issues/1034
-    // If we arrive directly to this url, we need to fetch the article
-    await store.dispatch(ARTICLE_RESET_STATE);
+    await store.dispatch(resetArticleState);
     if (to.params.slug !== undefined) {
       await store.dispatch(
-        FETCH_ARTICLE,
+        fetchArticle,
         to.params.slug,
         to.params.previousArticle
       );
@@ -108,7 +106,7 @@ export default {
     return next();
   },
   async beforeRouteLeave(to, from, next) {
-    await store.dispatch(ARTICLE_RESET_STATE);
+    await store.dispatch(resetArticleState);
     next();
   },
   data() {
@@ -123,7 +121,7 @@ export default {
   },
   methods: {
     onPublish(slug) {
-      let action = slug ? ARTICLE_EDIT : ARTICLE_PUBLISH;
+      let action = slug ? editArticle : publishArticle;
       this.inProgress = true;
       this.$store
         .dispatch(action)
@@ -140,10 +138,10 @@ export default {
         });
     },
     removeTag(tag) {
-      this.$store.dispatch(ARTICLE_EDIT_REMOVE_TAG, tag);
+      this.$store.dispatch(editArticleRemoveTag, tag);
     },
     addTag(tag) {
-      this.$store.dispatch(ARTICLE_EDIT_ADD_TAG, tag);
+      this.$store.dispatch(editArticleAddTag, tag);
       this.tagInput = null;
     }
   }

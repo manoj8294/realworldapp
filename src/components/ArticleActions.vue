@@ -1,5 +1,4 @@
 <template>
-  <!-- Used when user is also author -->
   <span v-if="canModify">
     <router-link
       class="btn btn-sm btn-outline-secondary"
@@ -12,7 +11,6 @@
       <i class="ion-trash-a"></i><span>&nbsp;Delete Article</span>
     </button>
   </span>
-  <!-- Used in ArticleView when not author -->
   <span v-else>
     <button class="btn btn-sm btn-outline-secondary" @click="toggleFollow">
       <i class="ion-plus-round"></i> <span>&nbsp;</span>
@@ -50,7 +48,7 @@ import {
 } from "@/store/actions.type";
 
 export default {
-  name: "RwvArticleActions",
+  name: "ArticleActions",
   props: {
     article: { type: Object, required: true },
     canModify: { type: Boolean, required: true }

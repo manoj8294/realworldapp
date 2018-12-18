@@ -16,6 +16,6 @@
 
 <script>
 export default {
-  name: "RwvFooter"
+  name: "Footer"
 };
 </script>

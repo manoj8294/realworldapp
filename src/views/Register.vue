@@ -49,10 +49,10 @@
 
 <script>
 import { mapState } from "vuex";
-import { REGISTER } from "@/store/actions.type";
+import { registerUser } from "@/store/actions.type";
 
 export default {
-  name: "RwvRegister",
+  name: "registerUser",
   data() {
     return {
       username: "",
@@ -68,7 +68,7 @@ export default {
   methods: {
     onSubmit() {
       this.$store
-        .dispatch(REGISTER, {
+        .dispatch(registerUser, {
           email: this.email,
           password: this.password,
           username: this.username

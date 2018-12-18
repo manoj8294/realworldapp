@@ -5,7 +5,7 @@
         <div class="col-md-6 offset-md-3 col-xs-12">
           <h1 class="text-xs-center">Sign in</h1>
           <p class="text-xs-center">
-            <router-link :to="{ name: 'register' }">
+            <router-link :to="{ name: 'registerUser' }">
               Need an account?
             </router-link>
           </p>
@@ -41,10 +41,10 @@
 
 <script>
 import { mapState } from "vuex";
-import { LOGIN } from "@/store/actions.type";
+import { login } from "@/store/actions.type";
 
 export default {
-  name: "RwvLogin",
+  name: "login",
   data() {
     return {
       email: null,
@@ -54,7 +54,7 @@ export default {
   methods: {
     onSubmit(email, password) {
       this.$store
-        .dispatch(LOGIN, { email, password })
+        .dispatch(login, { email, password })
         .then(() => this.$router.push({ name: "home" }));
     }
   },

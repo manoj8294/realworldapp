@@ -30,7 +30,7 @@
             class="nav-link"
             active-class="active"
             exact
-            :to="{ name: 'register' }"
+            :to="{ name: 'registerUser' }"
           >
             <i class="ion-compose"></i>Sign up
           </router-link>
@@ -88,7 +88,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "RwvHeader",
+  name: "Header",
   computed: {
     ...mapGetters(["currentUser", "isAuthenticated"])
   }

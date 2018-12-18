@@ -1,6 +1,6 @@
 <template>
   <div class="article-preview">
-    <RwvArticleMeta isPreview :article="article" />
+    <ArticleMeta isPreview :article="article" />
     <router-link :to="articleLink" class="preview-link">
       <h1 v-text="article.title" />
       <p v-text="article.description" />
@@ -11,13 +11,13 @@
 </template>
 
 <script>
-import RwvArticleMeta from "./ArticleMeta";
+import ArticleMeta from "./ArticleMeta";
 import TagList from "./TagList";
 
 export default {
-  name: "RwvArticlePreview",
+  name: "ArticlePreview",
   components: {
-    RwvArticleMeta,
+    ArticleMeta,
     TagList
   },
   props: {

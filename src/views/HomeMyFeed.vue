@@ -1,14 +1,14 @@
 <template>
-  <div class="home-my-feed"><RwvArticleList type="feed" /></div>
+  <div class="home-my-feed"><ArticleList type="feed" /></div>
 </template>
 
 <script>
-import RwvArticleList from "@/components/ArticleList";
+import ArticleList from "@/components/ArticleList";
 
 export default {
-  name: "rwv-home-my-feed",
+  name: "MyFeed",
   components: {
-    RwvArticleList
+    ArticleList
   }
 };
 </script>

@@ -15,10 +15,10 @@
       <span class="date">{{ article.createdAt | date }}</span>
     </div>
     <template v-if="actions">
-      <rwv-article-actions
+      <article-actions
         :article="article"
         :canModify="isCurrentUser()"
-      ></rwv-article-actions>
+      ></article-actions>
     </template>
     <template v-else>
       <button
@@ -39,13 +39,13 @@
 
 <script>
 import { mapGetters } from "vuex";
-import RwvArticleActions from "@/components/ArticleActions";
+import ArticleActions from "@/components/ArticleActions";
 import { addFavoriteArticle, removeFavoriteArticle } from "@/store/actions.type";
 
 export default {
-  name: "RwvArticleMeta",
+  name: "ArticleMeta",
   components: {
-    RwvArticleActions
+    ArticleActions
   },
   props: {
     article: {

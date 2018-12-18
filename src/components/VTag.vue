@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "RwvTag",
+  name: "Tag",
   props: {
     name: {
       type: String,

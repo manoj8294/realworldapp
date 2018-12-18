@@ -1,10 +1,10 @@
 import ApiService from "@/common/api.service";
 import {
-  FETCH_PROFILE,
+  fetchProfile,
   fetchProfileFollow,
   fetchProfileFollowUnFollow
 } from "./actions.type";
-import { SET_PROFILE } from "./mutations.type";
+import { setProfile } from "./mutations.type";
 
 const state = {
   errors: {},
@@ -18,49 +18,40 @@ const getters = {
 };
 
 const actions = {
-  [FETCH_PROFILE](context, payload) {
+  [fetchProfile](context, payload) {
     const { username } = payload;
     return ApiService.get("profiles", username)
       .then(({ data }) => {
-        context.commit(SET_PROFILE, data.profile);
+        context.commit(setProfile, data.profile);
         return data;
       })
       .catch(() => {
-        // #todo SET_ERROR cannot work in multiple states
-        // context.commit(SET_ERROR, response.data.errors)
       });
   },
   [fetchProfileFollow](context, payload) {
     const { username } = payload;
     return ApiService.post(`profiles/${username}/follow`)
       .then(({ data }) => {
-        context.commit(SET_PROFILE, data.profile);
+        context.commit(setProfile, data.profile);
         return data;
       })
       .catch(() => {
-        // #todo SET_ERROR cannot work in multiple states
-        // context.commit(SET_ERROR, response.data.errors)
       });
   },
   [fetchProfileFollowUnFollow](context, payload) {
     const { username } = payload;
     return ApiService.delete(`profiles/${username}/follow`)
       .then(({ data }) => {
-        context.commit(SET_PROFILE, data.profile);
+        context.commit(setProfile, data.profile);
         return data;
       })
       .catch(() => {
-        // #todo SET_ERROR cannot work in multiple states
-        // context.commit(SET_ERROR, response.data.errors)
       });
   }
 };
 
 const mutations = {
-  // [SET_ERROR] (state, error) {
-  //   state.errors = error
-  // },
-  [SET_PROFILE](state, profile) {
+  [setProfile](state, profile) {
     state.profile = profile;
     state.errors = {};
   }

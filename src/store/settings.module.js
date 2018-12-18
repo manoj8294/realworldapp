@@ -1,6 +1,6 @@
 import { ArticlesService, CommentsService } from "@/common/api.service";
-import { FETCH_ARTICLE, FETCH_COMMENTS } from "./actions.type";
-import { SET_ARTICLE, SET_COMMENTS } from "./mutations.type";
+import { fetchArticle, fetchComments } from "./actions.type";
+import { setArticle, setComments } from "./mutations.type";
 
 export const state = {
   article: {},
@@ -8,19 +8,19 @@ export const state = {
 };
 
 export const actions = {
-  [FETCH_ARTICLE](context, articleSlug) {
+  [fetchArticle](context, articleSlug) {
     return ArticlesService.get(articleSlug)
       .then(({ data }) => {
-        context.commit(SET_ARTICLE, data.article);
+        context.commit(setArticle, data.article);
       })
       .catch(error => {
         throw new Error(error);
       });
   },
-  [FETCH_COMMENTS](context, articleSlug) {
+  [fetchComments](context, articleSlug) {
     return CommentsService.get(articleSlug)
       .then(({ data }) => {
-        context.commit(SET_COMMENTS, data.comments);
+        context.commit(setComments, data.comments);
       })
       .catch(error => {
         throw new Error(error);
@@ -30,10 +30,10 @@ export const actions = {
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export const mutations = {
-  [SET_ARTICLE](state, article) {
+  [setArticle](state, article) {
     state.article = article;
   },
-  [SET_COMMENTS](state, comments) {
+  [setComments](state, comments) {
     state.comments = comments;
   }
 };
